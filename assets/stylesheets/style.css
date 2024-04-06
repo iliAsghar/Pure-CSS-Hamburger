@@ -5,25 +5,56 @@
 }
 
 :root {
-  --primarylight-clr: #E6E6E6;
+  --dark-clr: #261f1f;
   --secondarylight-clr: #FFA559;
   --accent-clr: #FF6000;
-  --primarydark-clr: #454545;
+  --primarydark-clr: #1b110b;
+  --secondarydark-clr: #454545;
 }
 
 body {
   height: 100vh;
-  background-color: var(--primarylight-clr)
+  background-color: #121212;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 15%;
+  transition: padding-left 250ms ease-in-out;
 }
 
 .header {
-  background-color: var(--secondarylight-clr);
+  background-color: var(--primarydark-clr);
   height: 4rem;
-  border-bottom : 1px black solid;
+  border-bottom : 1px var(--accent-clr) solid;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+body:has(#sidebar-menu-toggle:checked) {
+  padding-left: 0;
 }
 
 #sidebar-menu-toggle {
   display: none;
+}
+
+#sidebar-menu-toggle:checked ~ .hamburger .fade-right {
+  transform: translateX(50%);
+  opacity: 0;
+}
+
+#sidebar-menu-toggle:checked ~ .hamburger .spin-ccw {
+  transform: translateY(calc(15px - 100%)) rotate(-45deg);
+}
+
+#sidebar-menu-toggle:checked ~ .hamburger .spin-cw {
+  transform: translateY(calc(0px - (15px - 100%))) rotate(45deg);
+}
+
+label:has(#sidebar-menu-toggle:checked) ~ .sidebar {
+  transform: translateX(-100%);
 }
 
 .hamburger {
@@ -43,16 +74,26 @@ body {
   height: 5px;
   width: 30px;
   border-radius: 50px;
-  background-color: black;
+  background-color: white;
+}
+
+.fade-right {
+  transition: transform 250ms ease-in-out,
+              opacity 250ms ease-in-out;
+}
+
+.spin-ccw,.spin-cw {
+  transition: transform 250ms ease-in-out;
 }
 
 .sidebar {
-  position: absolute;
+  position: fixed;
   top: 4rem;
   bottom: 0;
   width: 15%;
   background: rgb(197,168,128);
-  background: linear-gradient(180deg, var(--secondarylight-clr) 0%, var(--accent-clr) 100%);
+  background: linear-gradient(200deg, var(--accent-clr) 40%, var(--primarydark-clr)95%, var(--primarydark-clr) 100%);
+  transition: transform 300ms ease-in-out;
 }
 
 .sidebar__list {
@@ -65,11 +106,18 @@ body {
   height: auto;
   /* background-color: red; */
   border-bottom : 1px black solid;
-  font-family: "Varela Round";
+  font-family: "Varela Round", sans-serif;
 }
 
 .sidebar__item a {
   display: block;
   text-decoration: none;
   padding: 1rem 2rem 1rem 1rem;
+}
+
+.title {
+  color: white;
+  font-family: "Varela Round", sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
 }
